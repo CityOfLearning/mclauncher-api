@@ -17,7 +17,7 @@ import sk.tomsik68.mclauncher.api.login.ISession;
 import sk.tomsik68.mclauncher.api.login.LoginException;
 import sk.tomsik68.mclauncher.api.services.IServicesAvailability;
 import sk.tomsik68.mclauncher.impl.login.legacy.LegacyProfile;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 import sk.tomsik68.mclauncher.util.HttpUtils;
 
 public final class YDLoginService implements ILoginService {
@@ -145,7 +145,7 @@ public final class YDLoginService implements ILoginService {
 			}
 			file.delete();
 		}
-		FileUtils.createFileSafely(file);
+		MCFileUtils.createFileSafely(file);
 		MCLauncherAPI.log.fine("Writing client token...");
 		// file.createNewFile();
 		obj.put("clientToken", clientToken.toString());

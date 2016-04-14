@@ -14,7 +14,7 @@ import sk.tomsik68.mclauncher.api.versions.IVersionInstallListener;
 import sk.tomsik68.mclauncher.api.versions.IVersionInstaller;
 import sk.tomsik68.mclauncher.impl.common.Platform;
 import sk.tomsik68.mclauncher.util.ExtractUtils;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 final class MCDownloadVersionInstaller implements IVersionInstaller {
 	private static final String JAR_DOWNLOAD_URL = "https://s3.amazonaws.com/Minecraft.Download/versions/<VERSION>/<VERSION>.jar";
@@ -30,7 +30,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 	}
 
 	private void downloadLibrary(String url, File dest, IProgressMonitor p) throws Exception {
-		FileUtils.downloadFileWithProgress(url, dest, p);
+		MCFileUtils.downloadFileWithProgress(url, dest, p);
 	}
 
 	@Override
@@ -137,7 +137,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 		if (haveProgress) {
 			progress.setStatus("Updating Resource...");
 		}
-		FileUtils.writeFile(jsonDest, version.toJSON().toJSONString(JSONStyle.LT_COMPRESS));
+		MCFileUtils.writeFile(jsonDest, version.toJSON().toJSONString(JSONStyle.LT_COMPRESS));
 		// and jar file
 		log.fine("Downloading game JAR...");
 		// if this version uses its own jar
@@ -147,7 +147,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 				progress.setStatus("Downloading Game Jar...");
 			}
 			try {
-				FileUtils.downloadFileWithProgress(JAR_DOWNLOAD_URL.replace("<VERSION>", version.getId()), jarDest,
+				MCFileUtils.downloadFileWithProgress(JAR_DOWNLOAD_URL.replace("<VERSION>", version.getId()), jarDest,
 						progress);
 			} catch (Exception e) {
 				e.printStackTrace();

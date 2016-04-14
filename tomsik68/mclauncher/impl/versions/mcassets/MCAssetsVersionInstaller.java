@@ -13,7 +13,7 @@ import sk.tomsik68.mclauncher.api.versions.IVersionInstallListener;
 import sk.tomsik68.mclauncher.api.versions.IVersionInstaller;
 import sk.tomsik68.mclauncher.impl.common.Platform;
 import sk.tomsik68.mclauncher.util.ExtractUtils;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 @Deprecated
 public final class MCAssetsVersionInstaller implements IVersionInstaller {
@@ -55,7 +55,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 		String url = this.getVersionURL(version.getId());
 		// if the jar doesn't exist, download it
 		if (!jarManager.getVersionFile(version).exists()) {
-			FileUtils.downloadFileWithProgress(url, jarManager.getVersionFile(version), progress);
+			MCFileUtils.downloadFileWithProgress(url, jarManager.getVersionFile(version), progress);
 		}
 
 		// check if LWJGL needs to be downloaded
@@ -86,7 +86,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 		File lwjglDir = new File(jarManager.getNativesDirectory(), "lwjgl-2.9.0");
 		lwjglDir.deleteOnExit();
 		File dest = new File(jarManager.getNativesDirectory(), "lwjgl.zip");
-		FileUtils.downloadFileWithProgress(LWJGL_DOWNLOAD_URL, dest, progress);
+		MCFileUtils.downloadFileWithProgress(LWJGL_DOWNLOAD_URL, dest, progress);
 		jarManager.getNativesDirectory().mkdirs();
 		dest.deleteOnExit();
 		// extract all things from ZIP
@@ -94,14 +94,14 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 		File[] lwjgl = getDefaultLWJGLJars(mc.getLocation());
 		// move JARs from LWJGL
 		for (File file : lwjgl) {
-			FileUtils.copyFile(new File(lwjglDir + File.separator + "jar", file.getName()), file);
+			MCFileUtils.copyFile(new File(lwjglDir + File.separator + "jar", file.getName()), file);
 		}
 		// move natives
 		File[] nativeThings = new File(lwjglDir,
 				"native" + File.separator + Platform.wrapName(Platform.getCurrentPlatform().getMinecraftName()))
 						.listFiles();
 		for (File file : nativeThings) {
-			FileUtils.copyFile(file, new File(jarManager.getNativesDirectory(), file.getName()));
+			MCFileUtils.copyFile(file, new File(jarManager.getNativesDirectory(), file.getName()));
 		}
 	}
 
@@ -122,7 +122,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 					if (!dest.delete()) {
 						throw new IOException("Failed to remove file: '".concat(dest.getAbsolutePath()).concat("'"));
 					}
-					FileUtils.downloadFileWithProgress(RESOURCES_DOWNLOAD_URL + URLEncoder.encode(resource, "UTF-8"),
+					MCFileUtils.downloadFileWithProgress(RESOURCES_DOWNLOAD_URL + URLEncoder.encode(resource, "UTF-8"),
 							dest, progress);
 				}
 			}

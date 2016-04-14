@@ -11,7 +11,7 @@ import net.minidev.json.JSONValue;
 import sk.tomsik68.mclauncher.api.common.MCLauncherAPI;
 import sk.tomsik68.mclauncher.api.login.IProfile;
 import sk.tomsik68.mclauncher.api.login.IProfileIO;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 public final class YDProfileIO implements IProfileIO {
 	private final File dest;
@@ -38,7 +38,7 @@ public final class YDProfileIO implements IProfileIO {
 	public void write(IProfile[] profiles) throws Exception {
 		JSONObject jRoot, authDb;
 		if (!this.dest.exists()) {
-			FileUtils.createFileSafely(this.dest);
+			MCFileUtils.createFileSafely(this.dest);
 			jRoot = new JSONObject();
 			authDb = new JSONObject();
 		} else {

@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import sk.tomsik68.mclauncher.api.common.MCLauncherAPI;
 import sk.tomsik68.mclauncher.api.login.IProfile;
 import sk.tomsik68.mclauncher.api.login.IProfileIO;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 public final class LegacyProfileIO implements IProfileIO {
 	private final LegacyLoginEncryptionProcessor proc;
@@ -40,7 +40,7 @@ public final class LegacyProfileIO implements IProfileIO {
 		// create the file if it doesn't exist
 		if (!this.dest.exists()) {
 			MCLauncherAPI.log.fine("lastlogin file doesn't exist. Creating it...");
-			FileUtils.createFileSafely(this.dest);
+			MCFileUtils.createFileSafely(this.dest);
 			MCLauncherAPI.log.fine("lastlogin file created.");
 		}
 		// write the profile as 2 UTF strings encrypted with

@@ -9,7 +9,7 @@ import sk.tomsik68.mclauncher.api.common.MCLauncherAPI;
 import sk.tomsik68.mclauncher.api.common.mc.MinecraftInstance;
 import sk.tomsik68.mclauncher.api.ui.IProgressMonitor;
 import sk.tomsik68.mclauncher.util.FilePathBuilder;
-import sk.tomsik68.mclauncher.util.FileUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 final class MCDResourcesInstaller {
 
@@ -43,7 +43,7 @@ final class MCDResourcesInstaller {
 			dest.getParentFile().mkdirs();
 			if (!dest.exists() || (dest.length() != asset.getSize())) {
 				MCLauncherAPI.log.finest("Downloading ".concat(asset.getKey()));
-				FileUtils.downloadFileWithProgress(asset.getUrl(), dest, progress);
+				MCFileUtils.downloadFileWithProgress(asset.getUrl(), dest, progress);
 			} else {
 				MCLauncherAPI.log.finest("No need to update ".concat(asset.getKey()));
 			}
@@ -100,7 +100,7 @@ final class MCDResourcesInstaller {
 		String indexDownloadURL = RESOURCES_INDEX_URL + index + ".json";
 		// download this asset index
 		if (!indexDest.exists() || (indexDest.length() == 0)) {
-			FileUtils.downloadFileWithProgress(indexDownloadURL, indexDest, progress);
+			MCFileUtils.downloadFileWithProgress(indexDownloadURL, indexDest, progress);
 		}
 		// parse it from JSON
 		JSONObject jsonAssets = (JSONObject) JSONValue.parse(new FileReader(indexDest));

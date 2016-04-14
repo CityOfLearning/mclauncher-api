@@ -28,7 +28,7 @@ import com.google.common.io.Files;
 
 import sk.tomsik68.mclauncher.api.ui.IProgressMonitor;
 
-public final class FileUtils {
+public final class MCFileUtils {
 
 	private static final String PACK_NAME = ".pack.xz";
 
@@ -56,8 +56,10 @@ public final class FileUtils {
 		}
 		if (file.exists()) {
 			if (!file.delete()) {
-				throw new IOException(
-						"Couldn't delete '".concat(file.getName()).concat("'").concat(" Try Signing in again"));
+				if (!file.renameTo(new File(file.getParentFile(), "old-" + file.getName()))) {
+					throw new IOException(
+							"Couldn't delete '".concat(file.getName()).concat("'").concat(" Try Signing in again"));
+				}
 			}
 		}
 		if (!file.createNewFile()) {
@@ -237,7 +239,7 @@ public final class FileUtils {
 			output.delete();
 		}
 
-		byte[] decompressed = FileUtils.readFully(new XZInputStream(new ByteArrayInputStream(data)));
+		byte[] decompressed = MCFileUtils.readFully(new XZInputStream(new ByteArrayInputStream(data)));
 
 		// Snag the checksum signature
 		String end = new String(decompressed, decompressed.length - 4, 4);
