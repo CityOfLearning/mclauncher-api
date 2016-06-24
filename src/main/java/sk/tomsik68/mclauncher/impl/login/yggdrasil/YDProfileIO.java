@@ -24,7 +24,9 @@ public final class YDProfileIO implements IProfileIO {
 
     @Override
     public IProfile[] read() throws Exception {
-        JSONObject root = (JSONObject) JSONValue.parse(new FileReader(dest));
+        FileReader fileReader = new FileReader(dest);
+        JSONObject root = (JSONObject) JSONValue.parse(fileReader);
+        fileReader.close();
 
         JSONObject authDatabase = (JSONObject) root.get("authenticationDatabase");
         IProfile[] result = new IProfile[authDatabase.size()];
@@ -45,8 +47,13 @@ public final class YDProfileIO implements IProfileIO {
             authDb = new JSONObject();
         } else {
             MCLauncherAPI.log.fine("Existing profile storage file found. Loading profiles in case they would be overwritten.");
-            jRoot = (JSONObject) JSONValue.parse(new FileInputStream(dest));
+            FileReader fileReader = new FileReader(dest);
+            jRoot = (JSONObject) JSONValue.parse(fileReader);
+            fileReader.close();
             authDb = (JSONObject) jRoot.get("authenticationDatabase");
+            if(authDb == null){
+                authDb = new JSONObject();
+            }
         }
 
         for (IProfile p : profiles) {
