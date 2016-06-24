@@ -13,23 +13,23 @@ final class AssetIndex {
 
 	AssetIndex(String name, JSONObject json) {
 		this.name = name;
-		this.virtual = json.containsKey("virtual") && Boolean.parseBoolean(json.get("virtual").toString());
+		virtual = json.containsKey("virtual") && Boolean.parseBoolean(json.get("virtual").toString());
 		JSONObject objsObj = (JSONObject) json.get("objects");
 		for (Entry<String, Object> objectEntry : objsObj.entrySet()) {
-			this.objects.add(new Asset((JSONObject) objectEntry.getValue(), objectEntry.getKey()));
+			objects.add(new Asset((JSONObject) objectEntry.getValue(), objectEntry.getKey()));
 		}
 	}
 
 	Set<Asset> getAssets() {
-		return this.objects;
+		return objects;
 	}
 
 	String getName() {
-		return this.name;
+		return name;
 	}
 
 	boolean isVirtual() {
-		return this.virtual;
+		return virtual;
 	}
 
 }

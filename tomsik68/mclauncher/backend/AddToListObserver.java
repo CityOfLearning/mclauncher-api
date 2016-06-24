@@ -10,15 +10,15 @@ final class AddToListObserver implements IObserver<String> {
 	private final List<String> list;
 
 	AddToListObserver() {
-		this.list = new ArrayList<String>();
+		list = new ArrayList<String>();
 	}
 
 	public List<String> getList() {
-		return this.list;
+		return list;
 	}
 
 	@Override
 	public void onUpdate(IObservable<String> observable, String changed) {
-		this.list.add(changed);
+		list.add(changed);
 	}
 }

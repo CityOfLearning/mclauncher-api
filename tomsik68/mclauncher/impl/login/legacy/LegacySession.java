@@ -9,19 +9,19 @@ final class LegacySession implements ISession {
 	private final String userName, sessionID, uuid, downloadTicket, lastVersion;
 
 	public LegacySession(String user, String sessid, String uuid, String dlTicket, String lVersion) {
-		this.userName = user;
-		this.sessionID = sessid;
+		userName = user;
+		sessionID = sessid;
 		this.uuid = uuid;
-		this.downloadTicket = dlTicket;
-		this.lastVersion = lVersion;
+		downloadTicket = dlTicket;
+		lastVersion = lVersion;
 	}
 
 	public String getDownloadTicket() {
-		return this.downloadTicket;
+		return downloadTicket;
 	}
 
 	public String getLastVersion() {
-		return this.lastVersion;
+		return lastVersion;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ final class LegacySession implements ISession {
 
 	@Override
 	public String getSessionID() {
-		return this.sessionID;
+		return sessionID;
 	}
 
 	@Override
@@ -41,12 +41,12 @@ final class LegacySession implements ISession {
 
 	@Override
 	public String getUsername() {
-		return this.userName;
+		return userName;
 	}
 
 	@Override
 	public String getUUID() {
-		return this.uuid;
+		return uuid;
 	}
 
 }

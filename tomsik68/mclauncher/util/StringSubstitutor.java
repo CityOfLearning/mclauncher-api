@@ -14,21 +14,21 @@ public final class StringSubstitutor {
 	/**
 	 * Creates a StringSubstitutor that replaces variable in a way like you
 	 * specify in template.
-	 * 
+	 *
 	 * @param tmp
 	 *            - for example <code>${%s}</code> will substitute %s for key
 	 *            and then replace it by value
 	 */
 	public StringSubstitutor(String tmp) {
-		this.template = tmp;
+		template = tmp;
 	}
 
 	public void setVariable(String key, String val) {
-		this.variables.put(String.format(this.template, key), val);
+		variables.put(String.format(template, key), val);
 	}
 
 	public String substitute(String s) {
-		for (Entry<String, String> variable : this.variables.entrySet()) {
+		for (Entry<String, String> variable : variables.entrySet()) {
 			s = s.replace(variable.getKey(), variable.getValue());
 		}
 		return s;

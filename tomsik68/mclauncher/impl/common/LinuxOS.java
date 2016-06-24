@@ -26,13 +26,13 @@ final class LinuxOS implements IOperatingSystem {
 	// Minecraft on *Nix systems will live defaultly in ~/.minecraft
 	@Override
 	public File getWorkingDirectory() {
-		if (this.workDir != null) {
-			return this.workDir;
+		if (workDir != null) {
+			return workDir;
 		}
 		String userHome = System.getProperty("user.home");
-		this.workDir = new File(userHome, ".minecraft");
-		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(this.workDir.getAbsolutePath()));
-		return this.workDir;
+		workDir = new File(userHome, ".minecraft");
+		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(workDir.getAbsolutePath()));
+		return workDir;
 	}
 
 	@Override

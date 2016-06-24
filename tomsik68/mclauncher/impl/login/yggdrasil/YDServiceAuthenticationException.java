@@ -15,11 +15,11 @@ public class YDServiceAuthenticationException extends Exception {
 
 	public YDServiceAuthenticationException(String msg, Exception e) {
 		super(msg);
-		this.thrown = e;
+		thrown = e;
 	}
 
 	public Exception getThrown() {
-		return this.thrown;
+		return thrown;
 	}
 
 }

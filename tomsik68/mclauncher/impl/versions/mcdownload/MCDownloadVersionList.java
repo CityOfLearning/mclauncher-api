@@ -19,33 +19,33 @@ public final class MCDownloadVersionList extends Observable<String> implements I
 	/**
 	 * Creates new MCDownloadVersionList which fetches local JSON files from
 	 * given minecraft instance
-	 * 
+	 *
 	 * @param mc
 	 *            where to fetch JSON files from
 	 */
 	public MCDownloadVersionList(MinecraftInstance mc) {
-		this.onlineVersionList = new MCDownloadOnlineVersionList();
-		this.localVersionList = new MCDownloadLocalVersionList(mc);
+		onlineVersionList = new MCDownloadOnlineVersionList();
+		localVersionList = new MCDownloadLocalVersionList(mc);
 
-		this.onlineVersionList.addObserver(this);
-		this.localVersionList.addObserver(this);
+		onlineVersionList.addObserver(this);
+		localVersionList.addObserver(this);
 	}
 
 	@Override
 	public LatestVersionInformation getLatestVersionInformation() throws Exception {
-		return this.onlineVersionList.getLatestVersionInformation();
+		return onlineVersionList.getLatestVersionInformation();
 	}
 
 	@Override
 	public void onUpdate(IObservable<String> observable, String changed) {
-		this.notifyObservers(changed);
+		notifyObservers(changed);
 	}
 
 	void resolveInheritance(MCDownloadVersion version) throws Exception {
 		// version's parent needs to be resolved first
 		if (version.getInheritsFrom() != null) {
-			MCDownloadVersion parent = (MCDownloadVersion) this.retrieveVersionInfo(version.getInheritsFrom());
-			this.resolveInheritance(parent);
+			MCDownloadVersion parent = (MCDownloadVersion) retrieveVersionInfo(version.getInheritsFrom());
+			resolveInheritance(parent);
 			version.doInherit(parent);
 		}
 	}
@@ -53,20 +53,20 @@ public final class MCDownloadVersionList extends Observable<String> implements I
 	@Override
 	public IVersion retrieveVersionInfo(String id) throws Exception {
 		IVersion result;
-		result = this.localVersionList.retrieveVersionInfo(id);
+		result = localVersionList.retrieveVersionInfo(id);
 		if (result == null) {
-			result = this.onlineVersionList.retrieveVersionInfo(id);
+			result = onlineVersionList.retrieveVersionInfo(id);
 		}
 
 		if (result != null) {
-			this.resolveInheritance((MCDownloadVersion) result);
+			resolveInheritance((MCDownloadVersion) result);
 		}
 		return result;
 	}
 
 	@Override
 	public void startDownload() throws Exception {
-		this.localVersionList.startDownload();
-		this.onlineVersionList.startDownload();
+		localVersionList.startDownload();
+		onlineVersionList.startDownload();
 	}
 }

@@ -16,14 +16,14 @@ public final class LegacyProfileIO implements IProfileIO {
 	private final File dest;
 
 	public LegacyProfileIO(File mcInstance) {
-		this.proc = new LegacyLoginEncryptionProcessor();
-		this.dest = new File(mcInstance, "lastlogin");
+		proc = new LegacyLoginEncryptionProcessor();
+		dest = new File(mcInstance, "lastlogin");
 	}
 
 	@Override
 	public IProfile[] read() throws Exception {
 		String user, pass;
-		DataInputStream input = new DataInputStream(this.proc.decrypt(new FileInputStream(this.dest)));
+		DataInputStream input = new DataInputStream(proc.decrypt(new FileInputStream(dest)));
 		user = input.readUTF();
 		pass = input.readUTF();
 		input.close();
@@ -38,14 +38,14 @@ public final class LegacyProfileIO implements IProfileIO {
 					"Saving multiple profiles using LegacyProfileIO is not possible! MCLauncherAPI will only save the one that is 0th in the array. Other profiles won't be saved!");
 		}
 		// create the file if it doesn't exist
-		if (!this.dest.exists()) {
+		if (!dest.exists()) {
 			MCLauncherAPI.log.fine("lastlogin file doesn't exist. Creating it...");
-			MCFileUtils.createFileSafely(this.dest);
+			MCFileUtils.createFileSafely(dest);
 			MCLauncherAPI.log.fine("lastlogin file created.");
 		}
 		// write the profile as 2 UTF strings encrypted with
 		// LegacyLoginEncryptionProcessor
-		DataOutputStream out = new DataOutputStream(this.proc.encrypt(new FileOutputStream(this.dest)));
+		DataOutputStream out = new DataOutputStream(proc.encrypt(new FileOutputStream(dest)));
 		out.writeUTF(profile[0].getName());
 		out.writeUTF(profile[0].getPassword());
 		out.flush();

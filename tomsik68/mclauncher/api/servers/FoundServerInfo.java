@@ -11,7 +11,7 @@ public class FoundServerInfo extends ServerInfo {
 
 	public FoundServerInfo(IServerFinder sf, String ip, String icon, int port, String name, Map<String, Object> info) {
 		super(ip, name, icon, port);
-		this.source = sf;
+		source = sf;
 		this.info = info;
 	}
 
@@ -22,7 +22,7 @@ public class FoundServerInfo extends ServerInfo {
 	 *         guidelines or limits on what should be in there...
 	 */
 	public Map<String, Object> getInformation() {
-		return this.info;
+		return info;
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class FoundServerInfo extends ServerInfo {
 	 * @return {@link IServerFinder} that found this server
 	 */
 	public IServerFinder getSource() {
-		return this.source;
+		return source;
 	}
 
 }

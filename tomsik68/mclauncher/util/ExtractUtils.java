@@ -9,12 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public final class ExtractUtils {
-	private static final IExtractRules anarchy = new IExtractRules() {
-		@Override
-		public boolean accepts(ZipEntry entry) {
-			return true;
-		}
-	};
+	private static final IExtractRules anarchy = entry -> true;
 
 	private static void extractZipEntry(ZipFile zf, ZipEntry zipEntry, File dir) throws Exception {
 		File destFile = new File(dir, zipEntry.getName());
@@ -44,7 +39,7 @@ public final class ExtractUtils {
 
 	/**
 	 * Extracts a ZIP-compatible(even JAR) file to specified directory
-	 * 
+	 *
 	 * @param jar
 	 *            The archive to be extracted
 	 * @param dir
@@ -59,7 +54,7 @@ public final class ExtractUtils {
 	/**
 	 * Extract a ZIP-compatible(even JAR) file to specified directory respecting
 	 * the specified rules
-	 * 
+	 *
 	 * @param jar
 	 *            The archive to be extracted
 	 * @param dir

@@ -17,13 +17,13 @@ public final class ServerPingerManager {
 	private final ExecutorService threadPool;
 
 	private ServerPingerManager() {
-		this.threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+		threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
 	public Future<ServerPingResult> pingServer(ServerInfo server) {
-		return this.threadPool.submit(new ServerPinger(server, new Protocol47PingPacketFactory()));
+		return threadPool.submit(new ServerPinger(server, new Protocol47PingPacketFactory()));
 	}
 
 }

@@ -21,12 +21,12 @@ public final class VanillaServerFinder extends Observable<FoundServerInfo> imple
 	private final InetAddress broadcastAddress;
 
 	public VanillaServerFinder() throws UnknownHostException {
-		this.broadcastAddress = InetAddress.getByName(SOCKET_GROUP_ADDRESS);
+		broadcastAddress = InetAddress.getByName(SOCKET_GROUP_ADDRESS);
 	}
 
 	@Override
 	public boolean isActive() {
-		return this.thread.isAlive();
+		return thread.isAlive();
 	}
 
 	@Override
@@ -39,14 +39,14 @@ public final class VanillaServerFinder extends Observable<FoundServerInfo> imple
 			// assign it to group
 			socket = new MulticastSocket(4445);
 			socket.setSoTimeout(5000);
-			socket.joinGroup(this.broadcastAddress);
+			socket.joinGroup(broadcastAddress);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		// we will use single builder to build all FoundServerInfo objects
 		final FoundServerInfoBuilder builder = new FoundServerInfoBuilder();
 		builder.finder(this);
-		while ((socket != null) && this.isActive()) {
+		while ((socket != null) && isActive()) {
 			// try to receive a packet
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
@@ -67,20 +67,20 @@ public final class VanillaServerFinder extends Observable<FoundServerInfo> imple
 			builder.property("recvString", recvString);
 			FoundServerInfo server = builder.build();
 			// and notify all observers about it
-			this.notifyObservers(server);
+			notifyObservers(server);
 		}
 
 	}
 
 	@Override
 	public void startFinding() {
-		this.thread = new Thread(this);
-		this.thread.start();
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	@Override
 	public void stop() {
-		this.thread.interrupt();
+		thread.interrupt();
 	}
 
 }

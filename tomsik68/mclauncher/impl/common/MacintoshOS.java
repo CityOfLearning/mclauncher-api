@@ -25,8 +25,8 @@ final class MacintoshOS implements IOperatingSystem {
 
 	@Override
 	public File getWorkingDirectory() {
-		if (this.workDir != null) {
-			return this.workDir;
+		if (workDir != null) {
+			return workDir;
 		}
 		/*
 		 * String path = System.getProperty("user.home")+
@@ -34,9 +34,9 @@ final class MacintoshOS implements IOperatingSystem {
 		 * File(new URI("file:///"+ path.replaceAll(" ", "%20"))); } catch
 		 * (URISyntaxException e) { e.printStackTrace(); }
 		 */
-		this.workDir = new File(System.getProperty("user.home"), "Library/Application Support/minecraft");
-		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(this.workDir.getAbsolutePath()));
-		return this.workDir;
+		workDir = new File(System.getProperty("user.home"), "Library/Application Support/minecraft");
+		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(workDir.getAbsolutePath()));
+		return workDir;
 	}
 
 	@Override

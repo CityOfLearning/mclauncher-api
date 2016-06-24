@@ -7,15 +7,15 @@ final class YDSessionLoginRequest implements IJSONSerializable {
 	private final String sessionID, clientToken;
 
 	public YDSessionLoginRequest(String sessid, String clientToken) {
-		this.sessionID = sessid;
+		sessionID = sessid;
 		this.clientToken = clientToken;
 	}
 
 	@Override
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
-		json.put("clientToken", this.clientToken);
-		json.put("accessToken", this.sessionID);
+		json.put("clientToken", clientToken);
+		json.put("accessToken", sessionID);
 		json.put("selectedProfile", null);
 		return json;
 	}

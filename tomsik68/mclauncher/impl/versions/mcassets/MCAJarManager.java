@@ -15,15 +15,15 @@ final class MCAJarManager {
 	private final File nativesDirectory;
 
 	MCAJarManager(MinecraftInstance mc) {
-		this.nativesDirectory = new File(mc.getLocation(), "natives");
-		this.binDirectory = new File(mc.getLocation(), "bin");
+		nativesDirectory = new File(mc.getLocation(), "natives");
+		binDirectory = new File(mc.getLocation(), "bin");
 	}
 
 	public File getNativesDirectory() {
-		return this.nativesDirectory;
+		return nativesDirectory;
 	}
 
 	File getVersionFile(IVersion version) {
-		return new File(this.binDirectory, version.getId() + ".jar");
+		return new File(binDirectory, version.getId() + ".jar");
 	}
 }

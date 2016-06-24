@@ -37,7 +37,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 
 	@Override
 	public void addVersionInstallListener(IVersionInstallListener listener) {
-		this.listeners.add(listener);
+		listeners.add(listener);
 	}
 
 	private File getResourceLocation(File mcLocation, String resource) {
@@ -52,7 +52,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 	@Override
 	public void install(IVersion version, MinecraftInstance mc, IProgressMonitor progress) throws Exception {
 		MCAJarManager jarManager = new MCAJarManager(mc);
-		String url = this.getVersionURL(version.getId());
+		String url = getVersionURL(version.getId());
 		// if the jar doesn't exist, download it
 		if (!jarManager.getVersionFile(version).exists()) {
 			MCFileUtils.downloadFileWithProgress(url, jarManager.getVersionFile(version), progress);
@@ -66,16 +66,16 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 		}
 		update = update || !jarManager.getNativesDirectory().exists();
 		if (update) {
-			this.updateJARs(jarManager, mc, version, progress);
+			updateJARs(jarManager, mc, version, progress);
 		}
 		// update resource files
-		this.updateResources(mc.getLocation(), progress);
-		this.notifyListeners(version);
+		updateResources(mc.getLocation(), progress);
+		notifyListeners(version);
 
 	}
 
 	private void notifyListeners(IVersion version) {
-		for (IVersionInstallListener listener : this.listeners) {
+		for (IVersionInstallListener listener : listeners) {
 			listener.versionInstalled(version);
 		}
 	}
@@ -111,7 +111,7 @@ public final class MCAssetsVersionInstaller implements IVersionInstaller {
 		List<String> resources = parser.parse();
 		// download them one by one
 		for (String resource : resources) {
-			File dest = this.getResourceLocation(mcLocation, resource);
+			File dest = getResourceLocation(mcLocation, resource);
 			if (!dest.exists()) {
 				// make all directories
 				if (!dest.mkdirs()) {

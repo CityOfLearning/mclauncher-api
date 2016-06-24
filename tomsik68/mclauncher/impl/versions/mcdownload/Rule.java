@@ -24,12 +24,12 @@ final class Rule {
 	private String restrictedOsVersionPattern;
 
 	public Rule(JSONObject json) {
-		this.action = Action.valueOf(json.get("action").toString().toUpperCase());
+		action = Action.valueOf(json.get("action").toString().toUpperCase());
 		if (json.containsKey("os")) {
 			JSONObject os = (JSONObject) json.get("os");
-			this.restrictedOs = Platform.osByName(os.get("name").toString());
+			restrictedOs = Platform.osByName(os.get("name").toString());
 			if (json.containsKey("version")) {
-				this.restrictedOsVersionPattern = os.get("version").toString();
+				restrictedOsVersionPattern = os.get("version").toString();
 			}
 		}
 	}
@@ -40,19 +40,19 @@ final class Rule {
 	 */
 	public boolean applies() {
 		// if there's no OS specified, it applies to all OSs
-		if (this.getRestrictedOs() == null) {
+		if (getRestrictedOs() == null) {
 			return true;
 		} else {
 			// if our OS is the restricted OS
-			if (this.getRestrictedOs() == Platform.getCurrentPlatform()) {
+			if (getRestrictedOs() == Platform.getCurrentPlatform()) {
 				// see if there's a version specified
-				if (this.restrictedOsVersionPattern == null) {
+				if (restrictedOsVersionPattern == null) {
 					// if there's no version, it applies to all versions
 					return true;
 				} else {
 					// if there's a version specified, compile it to a pattern
 					// and try to match it against system property "os.version"
-					boolean result = Pattern.matches(this.restrictedOsVersionPattern, System.getProperty("os.version"));
+					boolean result = Pattern.matches(restrictedOsVersionPattern, System.getProperty("os.version"));
 					return result;
 				}
 			} else {
@@ -63,26 +63,26 @@ final class Rule {
 	}
 
 	public Action getAction() {
-		return this.action;
+		return action;
 	}
 
 	public IOperatingSystem getRestrictedOs() {
-		return this.restrictedOs;
+		return restrictedOs;
 	}
 
 	public String getRestrictedOsVersionPattern() {
-		return this.restrictedOsVersionPattern;
+		return restrictedOsVersionPattern;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Rule:{");
-		sb.append("Action:").append(this.action).append(',');
-		if (this.restrictedOs != null) {
-			sb.append("OS:").append(this.restrictedOs.getDisplayName()).append(',');
+		sb.append("Action:").append(action).append(',');
+		if (restrictedOs != null) {
+			sb.append("OS:").append(restrictedOs.getDisplayName()).append(',');
 		}
-		if (this.restrictedOsVersionPattern != null) {
-			sb.append("version:").append(this.restrictedOsVersionPattern);
+		if (restrictedOsVersionPattern != null) {
+			sb.append("version:").append(restrictedOsVersionPattern);
 		}
 		sb.append('}');
 		return sb.toString();

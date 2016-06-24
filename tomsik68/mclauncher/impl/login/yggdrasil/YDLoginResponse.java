@@ -13,9 +13,9 @@ final class YDLoginResponse extends YDResponse {
 
 	public YDLoginResponse(JSONObject json) {
 		super(json);
-		this.sessionID = json.get("accessToken").toString();
-		this.clientToken = json.get("clientToken").toString();
-		this.selectedProfile = new YDPartialGameProfile((JSONObject) json.get("selectedProfile"));
+		sessionID = json.get("accessToken").toString();
+		clientToken = json.get("clientToken").toString();
+		selectedProfile = new YDPartialGameProfile((JSONObject) json.get("selectedProfile"));
 		JSONArray profiles = (JSONArray) json.get("availableProfiles");
 		if (profiles != null) {
 			for (Object object : profiles) {
@@ -25,30 +25,30 @@ final class YDLoginResponse extends YDResponse {
 			}
 		}
 		if (json.containsKey("user")) {
-			this.user = new YDUserObject((JSONObject) json.get("user"));
+			user = new YDUserObject((JSONObject) json.get("user"));
 		}
 	}
 
 	public String getClientToken() {
-		return this.clientToken;
+		return clientToken;
 	}
 
 	public YDPartialGameProfile getProfile(String name) {
-		return this.profiles.get(name);
+		return profiles.get(name);
 	}
 
 	public YDPartialGameProfile getSelectedProfile() {
-		return this.selectedProfile;
+		return selectedProfile;
 	}
 
 	public String getSessionID() {
-		return this.sessionID;
+		return sessionID;
 	}
 
 	public YDUserObject getUserObject() {
-		if (this.user == null) {
-			this.user = new YDUserObject(this.selectedProfile.getName());
+		if (user == null) {
+			user = new YDUserObject(selectedProfile.getName());
 		}
-		return this.user;
+		return user;
 	}
 }

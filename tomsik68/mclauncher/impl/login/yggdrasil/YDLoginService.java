@@ -17,8 +17,8 @@ import sk.tomsik68.mclauncher.api.login.ISession;
 import sk.tomsik68.mclauncher.api.login.LoginException;
 import sk.tomsik68.mclauncher.api.services.IServicesAvailability;
 import sk.tomsik68.mclauncher.impl.login.legacy.LegacyProfile;
-import sk.tomsik68.mclauncher.util.MCFileUtils;
 import sk.tomsik68.mclauncher.util.HttpUtils;
+import sk.tomsik68.mclauncher.util.MCFileUtils;
 
 public final class YDLoginService implements ILoginService {
 	public static UUID clientToken = UUID.randomUUID();
@@ -70,7 +70,7 @@ public final class YDLoginService implements ILoginService {
 		YDPasswordLoginRequest request = new YDPasswordLoginRequest(profile.getName(), profile.getPassword(),
 				clientToken.toString());
 
-		YDLoginResponse response = this.doCheckedLoginPost(PASSWORD_LOGIN_URL, request);
+		YDLoginResponse response = doCheckedLoginPost(PASSWORD_LOGIN_URL, request); //failing here
 
 		return response;
 	}
@@ -79,7 +79,7 @@ public final class YDLoginService implements ILoginService {
 		MCLauncherAPI.log.fine("Using session ID login");
 		YDSessionLoginRequest request = new YDSessionLoginRequest(profile.getPassword(), clientToken.toString());
 
-		YDLoginResponse response = this.doCheckedLoginPost(SESSION_LOGIN_URL, request);
+		YDLoginResponse response = doCheckedLoginPost(SESSION_LOGIN_URL, request);
 
 		return response;
 	}
@@ -91,7 +91,7 @@ public final class YDLoginService implements ILoginService {
 
 	public void load(File mcInstance) throws Exception {
 		File file = new File(mcInstance, "launcher_profiles.json");
-		this.loadFrom(file);
+		loadFrom(file);
 	}
 
 	public void loadFrom(File file) throws Exception {
@@ -105,9 +105,9 @@ public final class YDLoginService implements ILoginService {
 		MCLauncherAPI.log.fine("Logging in using yggdrassil...");
 		YDLoginResponse response;
 		if (profile instanceof LegacyProfile) {
-			response = this.doPasswordLogin(profile);
+			response = doPasswordLogin(profile); //sometimes doesnt work?
 		} else if (profile instanceof YDAuthProfile) {
-			response = this.doSessionLogin(profile);
+			response = doSessionLogin(profile);
 
 		} else {
 			throw new IllegalArgumentException(
@@ -126,13 +126,13 @@ public final class YDLoginService implements ILoginService {
 	@Override
 	public void logout(ISession session) throws Exception {
 		YDLogoutRequest request = new YDLogoutRequest(session, clientToken);
-		this.doCheckedLoginPost(SESSION_LOGOUT_URL, request);
+		doCheckedLoginPost(SESSION_LOGOUT_URL, request);
 		MCLauncherAPI.log.fine("Logout successful.");
 	}
 
 	public void save(File mcInstance) throws Exception {
 		File file = new File(mcInstance, "launcher_profiles.json");
-		this.saveTo(file);
+		saveTo(file);
 	}
 
 	public void saveTo(File file) throws Exception {

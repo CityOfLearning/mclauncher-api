@@ -15,11 +15,11 @@ final class FoundServerInfoBuilder {
 	private HashMap<String, Object> properties = new HashMap<String, Object>();
 
 	public FoundServerInfo build() {
-		return new FoundServerInfo(this.finder, this.ip, this.icon, this.port, this.motd, this.properties);
+		return new FoundServerInfo(finder, ip, icon, port, motd, properties);
 	}
 
 	public FoundServerInfoBuilder finder(IServerFinder sf) {
-		this.finder = sf;
+		finder = sf;
 		return this;
 	}
 
@@ -30,27 +30,27 @@ final class FoundServerInfoBuilder {
 	 * @return <code>this</code> for chaining
 	 */
 	public FoundServerInfoBuilder icon(String ico) {
-		this.icon = ico;
+		icon = ico;
 		return this;
 	}
 
 	public FoundServerInfoBuilder ip(String s) {
-		this.ip = s;
+		ip = s;
 		return this;
 	}
 
 	public FoundServerInfoBuilder motd(String s) {
-		this.motd = s;
+		motd = s;
 		return this;
 	}
 
 	public FoundServerInfoBuilder port(int p) {
-		this.port = p;
+		port = p;
 		return this;
 	}
 
 	public FoundServerInfoBuilder property(String key, Object value) {
-		this.properties.put(key, value);
+		properties.put(key, value);
 		return this;
 	}
 

@@ -14,14 +14,14 @@ final class YDUserObject {
 	private final ArrayList<Prop> props = new ArrayList<Prop>();
 
 	public YDUserObject(JSONObject object) {
-		this.id = object.get("id").toString();
+		id = object.get("id").toString();
 		JSONArray propsArray = (JSONArray) object.get("properties");
 		for (Object obj : propsArray) {
 			JSONObject jsonObj = (JSONObject) obj;
 			Prop p = new Prop();
 			p.name = jsonObj.get("name").toString();
 			p.value = jsonObj.get("value").toString();
-			this.props.add(p);
+			props.add(p);
 		}
 	}
 
@@ -30,6 +30,6 @@ final class YDUserObject {
 	}
 
 	public List<Prop> getProperties() {
-		return Collections.unmodifiableList(this.props);
+		return Collections.unmodifiableList(props);
 	}
 }

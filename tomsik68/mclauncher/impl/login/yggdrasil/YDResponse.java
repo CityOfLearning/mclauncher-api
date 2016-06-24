@@ -10,19 +10,19 @@ class YDResponse {
 
 	public YDResponse(JSONObject json) {
 		if (json.containsKey("error")) {
-			this.setError(json.get("error").toString());
+			setError(json.get("error").toString());
 		}
 		if (json.containsKey("errorMessage")) {
-			this.setMessage(json.get("errorMessage").toString());
+			setMessage(json.get("errorMessage").toString());
 		}
 	}
 
 	final String getError() {
-		return this.error;
+		return error;
 	}
 
 	final String getMessage() {
-		return this.message;
+		return message;
 	}
 
 	final void setError(String error) {

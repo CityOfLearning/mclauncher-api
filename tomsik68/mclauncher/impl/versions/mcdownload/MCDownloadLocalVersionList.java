@@ -17,7 +17,7 @@ final class MCDownloadLocalVersionList extends Observable<String> implements IVe
 	private final File versionsFolder;
 
 	public MCDownloadLocalVersionList(MinecraftInstance mc) {
-		this.versionsFolder = new File(mc.getLocation(), "versions");
+		versionsFolder = new File(mc.getLocation(), "versions");
 	}
 
 	@Override
@@ -31,12 +31,12 @@ final class MCDownloadLocalVersionList extends Observable<String> implements IVe
 	}
 
 	private File getVersionFolder(String id) {
-		return new File(this.versionsFolder, id);
+		return new File(versionsFolder, id);
 	}
 
 	@Override
 	public IVersion retrieveVersionInfo(String id) throws Exception {
-		File versionFolder = this.getVersionFolder(id);
+		File versionFolder = getVersionFolder(id);
 		if (!versionFolder.exists()) {
 			MCLauncherAPI.log.fine("version folder at '".concat(versionFolder.getAbsolutePath())
 					.concat("' doesn't exist or is invalid."));
@@ -49,22 +49,17 @@ final class MCDownloadLocalVersionList extends Observable<String> implements IVe
 
 	@Override
 	public void startDownload() throws Exception {
-		if (!this.versionsFolder.exists() || this.versionsFolder.isFile()) {
-			MCLauncherAPI.log.fine("'versions' folder at '".concat(this.versionsFolder.getAbsolutePath())
+		if (!versionsFolder.exists() || versionsFolder.isFile()) {
+			MCLauncherAPI.log.fine("'versions' folder at '".concat(versionsFolder.getAbsolutePath())
 					.concat("' doesn't exist or is invalid."));
 			return;
 		}
-		File[] versionFolders = this.versionsFolder.listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return file.isDirectory();
-			}
-		});
+		File[] versionFolders = versionsFolder.listFiles((FileFilter) file -> file.isDirectory());
 		for (File versionFolder : versionFolders) {
 			// do a quick check whether or not the needed JSON file exists
 			File jsonFile = new File(versionFolder, versionFolder.getName().concat(".json"));
 			if (jsonFile.exists()) {
-				this.notifyObservers(versionFolder.getName());
+				notifyObservers(versionFolder.getName());
 			}
 		}
 	}

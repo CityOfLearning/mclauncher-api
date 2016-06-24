@@ -13,8 +13,8 @@ final class Asset {
 	private final int size;
 
 	Asset(JSONObject obj, String key) {
-		this.hash = obj.get("hash").toString();
-		this.size = (Integer) obj.get("size");
+		hash = obj.get("hash").toString();
+		size = (Integer) obj.get("size");
 		this.key = key;
 	}
 
@@ -23,7 +23,7 @@ final class Asset {
 	 * @return Hash of this Asset
 	 */
 	String getHash() {
-		return this.hash;
+		return hash;
 	}
 
 	/**
@@ -31,7 +31,7 @@ final class Asset {
 	 * @return Key/Name of this asset in JSON structure
 	 */
 	String getKey() {
-		return this.key;
+		return key;
 	}
 
 	/**
@@ -39,16 +39,16 @@ final class Asset {
 	 * @return First 2 characters of hash
 	 */
 	String getPreHash() {
-		return this.hash.substring(0, 2);
+		return hash.substring(0, 2);
 	}
 
 	/**
 	 * Size of this Asset
-	 * 
+	 *
 	 * @return Size in bytes
 	 */
 	int getSize() {
-		return this.size;
+		return size;
 	}
 
 	/**
@@ -56,6 +56,6 @@ final class Asset {
 	 * @return URL where this asset can be downloaded
 	 */
 	String getUrl() {
-		return RESOURCES_URL + this.getPreHash() + "/" + this.hash;
+		return RESOURCES_URL + getPreHash() + "/" + hash;
 	}
 }

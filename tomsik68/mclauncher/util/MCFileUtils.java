@@ -115,10 +115,10 @@ public final class MCFileUtils {
 		} catch (FileNotFoundException fnf) {
 			// most likely we have a file not found error from forge... lets try
 			// to grab the pack
-			if (dest.getName().contains("forge-1.8")) {
+			if (dest.getName().contains("forge-1.8.9")) {
 				// this assumes we are downloading forge jar
 				downloadFileWithProgress(
-						"http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8-11.14.4.1577/forge-1.8-11.14.4.1577-universal.jar",
+						"http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1890-1.8.9/forge-1.8.9-11.15.1.1890-1.8.9-universal.jar",
 						dest, progress);
 			} else {
 				downloadPackedFileWithProgress(url + PACK_NAME, dest, progress);

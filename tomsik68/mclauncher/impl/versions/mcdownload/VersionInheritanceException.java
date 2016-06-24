@@ -7,11 +7,11 @@ public final class VersionInheritanceException extends Exception {
 
 	public VersionInheritanceException(IVersion v) {
 		super("This version needs to get inheritance resolved!");
-		this.version = v;
+		version = v;
 	}
 
 	public IVersion getVersion() {
-		return this.version;
+		return version;
 	}
 
 }

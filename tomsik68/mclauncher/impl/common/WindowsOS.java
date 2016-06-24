@@ -25,17 +25,17 @@ final class WindowsOS implements IOperatingSystem {
 
 	@Override
 	public File getWorkingDirectory() {
-		if (this.workDir != null) {
-			return this.workDir;
+		if (workDir != null) {
+			return workDir;
 		}
 		String appData = System.getenv("APPDATA");
 		if (appData != null) {
-			this.workDir = new File(appData, ".minecraft");
+			workDir = new File(appData, ".minecraft");
 		} else {
-			this.workDir = new File(System.getProperty("user.home"), ".minecraft");
+			workDir = new File(System.getProperty("user.home"), ".minecraft");
 		}
-		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(this.workDir.getAbsolutePath()));
-		return this.workDir;
+		MCLauncherAPI.log.fine("Minecraft working directory: ".concat(workDir.getAbsolutePath()));
+		return workDir;
 	}
 
 	@Override

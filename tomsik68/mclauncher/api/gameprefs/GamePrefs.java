@@ -13,16 +13,16 @@ public class GamePrefs {
 		private int width, height;
 
 		public Resolution(int w, int h) {
-			this.width = w;
-			this.height = h;
+			width = w;
+			height = h;
 		}
 
 		public int getHeight() {
-			return this.height;
+			return height;
 		}
 
 		public int getWidth() {
-			return this.width;
+			return width;
 		}
 
 		public void setHeight(int height) {
@@ -59,39 +59,39 @@ public class GamePrefs {
 	private ELauncherVisibility launcherVisibility;
 
 	public File getGameDirectory() {
-		return this.gameDirectory;
+		return gameDirectory;
 	}
 
 	public String getJavaArgs() {
-		return this.javaArgs;
+		return javaArgs;
 	}
 
 	public File getJavaDirectory() {
-		return this.javaDirectory;
+		return javaDirectory;
 	}
 
 	public String getLastVersion() {
-		return this.lastVersion;
+		return lastVersion;
 	}
 
 	public ELauncherVisibility getLauncherVisibility() {
-		return this.launcherVisibility;
+		return launcherVisibility;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public String getPlayerUUID() {
-		return this.playerUUID;
+		return playerUUID;
 	}
 
 	public Resolution getResolution() {
-		return this.res;
+		return res;
 	}
 
 	public boolean isUseHopper() {
-		return this.useHopper;
+		return useHopper;
 	}
 
 	public void setGameDirectory(File gameDirectory) {

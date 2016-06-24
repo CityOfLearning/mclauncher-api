@@ -10,30 +10,30 @@ public final class LegacyProfile implements IProfile {
 	private final String SKINS_ROOT = "http://skins.minecraft.net/MinecraftSkins/";
 
 	public LegacyProfile(String username, String password) {
-		this.name = username;
-		this.pass = password;
+		name = username;
+		pass = password;
 	}
 
 	@Override
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	@Override
 	public String getPassword() {
-		return this.pass;
+		return pass;
 	}
 
 	@Override
 	public String getSkinURL() {
-		StringBuilder url = new StringBuilder(this.SKINS_ROOT);
-		url = url.append(this.getName());
+		StringBuilder url = new StringBuilder(SKINS_ROOT);
+		url = url.append(getName());
 		url = url.append(".png");
 		return url.toString();
 	}
 
 	public boolean isRemember() {
-		return this.pass.length() > 0;
+		return pass.length() > 0;
 	}
 
 }

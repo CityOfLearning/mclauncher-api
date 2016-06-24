@@ -9,18 +9,18 @@ final class MCDJarManager {
 	private final File versionsFolder;
 
 	MCDJarManager(MinecraftInstance mc) {
-		this.versionsFolder = new File(mc.getLocation(), "versions");
+		versionsFolder = new File(mc.getLocation(), "versions");
 	}
 
 	File getInfoFile(IVersion version) {
-		return new File(this.getVersionFolder(version), version.getId() + ".json");
+		return new File(getVersionFolder(version), version.getId() + ".json");
 	}
 
 	File getVersionFolder(IVersion version) {
-		return new File(this.versionsFolder, version.getId());
+		return new File(versionsFolder, version.getId());
 	}
 
 	File getVersionJAR(MCDownloadVersion version) {
-		return new File(new File(this.versionsFolder, version.getJarVersion()), version.getJarVersion() + ".jar");
+		return new File(new File(versionsFolder, version.getJarVersion()), version.getJarVersion() + ".jar");
 	}
 }

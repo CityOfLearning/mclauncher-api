@@ -4,8 +4,6 @@ import java.applet.Applet;
 import java.applet.AppletStub;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -30,39 +28,34 @@ final class LauncherComponent extends Applet implements AppletStub {
 	public LauncherComponent(URLClassLoader loader) {
 		System.setProperty("minecraft.applet.WrapperClass", this.getClass().getName());
 		this.loader = loader;
-		this.params.put("fullscreen", "false");
-		this.setLayout(new BorderLayout());
-		this.splitPane = new JSplitPane();
-		this.splitPane.setEnabled(false);
-		this.splitPane.setResizeWeight(1.0D);
-		this.splitPane.setOrientation(0);
-		this.model = new DefaultTableModel();
-		this.model.addColumn("Key");
-		this.model.addColumn("Value");
-		this.model.setRowCount(5);
-		JTable tbParameters = new JTable(this.model);
-		this.splitPane.setLeftComponent(tbParameters);
+		params.put("fullscreen", "false");
+		setLayout(new BorderLayout());
+		splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		splitPane.setResizeWeight(1.0D);
+		splitPane.setOrientation(0);
+		model = new DefaultTableModel();
+		model.addColumn("Key");
+		model.addColumn("Value");
+		model.setRowCount(5);
+		JTable tbParameters = new JTable(model);
+		splitPane.setLeftComponent(tbParameters);
 
 		JButton btStart = new JButton("Start Minecraft");
-		btStart.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				LauncherComponent.this.startMinecraft();
-			}
-		});
-		this.splitPane.setRightComponent(btStart);
+		btStart.addActionListener(arg0 -> LauncherComponent.this.startMinecraft());
+		splitPane.setRightComponent(btStart);
 	}
 
 	@Override
 	public void appletResize(int width, int height) {
 		this.setSize(width, height);
-		this.minecraft.setSize(width, height);
+		minecraft.setSize(width, height);
 	}
 
 	public void createApplet() {
 		try {
-			this.minecraft = ((Applet) this.loader.loadClass("net.minecraft.client.MinecraftApplet").newInstance());
-			this.minecraft.setStub(this);
+			minecraft = ((Applet) loader.loadClass("net.minecraft.client.MinecraftApplet").newInstance());
+			minecraft.setStub(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,61 +73,61 @@ final class LauncherComponent extends Applet implements AppletStub {
 
 	@Override
 	public String getParameter(String name) {
-		if (this.params.containsKey(name)) {
-			return this.params.get(name).toString();
+		if (params.containsKey(name)) {
+			return params.get(name).toString();
 		}
 		try {
 			String superValue = super.getParameter(name);
 			if (superValue != null) {
-				this.model.addRow(new Object[] { name, superValue });
+				model.addRow(new Object[] { name, superValue });
 				return superValue;
 			}
 		} catch (Exception e) {
-			this.params.put(name, "");
+			params.put(name, "");
 
-			this.model.addRow(new Object[] { name, "" });
+			model.addRow(new Object[] { name, "" });
 		}
 		return null;
 	}
 
 	@Override
 	public boolean isActive() {
-		return this.active;
+		return active;
 	}
 
 	public void replace(Applet applet) {
-		this.minecraft = applet;
+		minecraft = applet;
 		applet.setStub(this);
-		applet.setSize(this.getWidth(), this.getHeight());
+		applet.setSize(getWidth(), getHeight());
 
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		this.add(applet, "Center");
 
 		applet.init();
-		this.active = true;
+		active = true;
 		applet.start();
-		this.validate();
+		validate();
 	}
 
 	public void setAll(Map<String, Object> params2) {
-		this.params.putAll(params2);
+		params.putAll(params2);
 	}
 
 	public void setParameter(String k, String v) {
-		this.params.put(k, v);
-		this.model.addRow(new Object[] { k, v });
+		params.put(k, v);
+		model.addRow(new Object[] { k, v });
 	}
 
 	@Override
 	public void start() {
-		this.add(this.splitPane);
+		this.add(splitPane);
 	}
 
 	public void startMinecraft() {
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
-				while (LauncherComponent.this.active) {
+				while (active) {
 					LauncherComponent.this.repaint();
 					try {
 						Thread.sleep(100L);
@@ -145,26 +138,26 @@ final class LauncherComponent extends Applet implements AppletStub {
 			}
 		};
 		thread.start();
-		for (int i = 0; i < this.model.getRowCount(); i++) {
-			if ((this.model.getValueAt(i, 0) != null) && (this.model.getValueAt(i, 1) != null)) {
-				this.params.put(this.model.getValueAt(i, 0).toString(), this.model.getValueAt(i, 1).toString());
+		for (int i = 0; i < model.getRowCount(); i++) {
+			if ((model.getValueAt(i, 0) != null) && (model.getValueAt(i, 1) != null)) {
+				params.put(model.getValueAt(i, 0).toString(), model.getValueAt(i, 1).toString());
 			}
 		}
-		if (this.minecraft == null) {
-			this.createApplet();
+		if (minecraft == null) {
+			createApplet();
 		}
-		this.replace(this.minecraft);
+		replace(minecraft);
 	}
 
 	@Override
 	public void stop() {
-		this.active = false;
+		active = false;
 	}
 
 	@Override
 	public void update(Graphics g) {
-		if (this.minecraft != null) {
-			this.minecraft.paint(g);
+		if (minecraft != null) {
+			minecraft.paint(g);
 		}
 	}
 }

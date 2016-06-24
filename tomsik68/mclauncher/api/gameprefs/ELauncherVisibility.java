@@ -28,7 +28,7 @@ public enum ELauncherVisibility {
 	private static final HashMap<String, ELauncherVisibility> lookupMap = new HashMap<String, ELauncherVisibility>();
 
 	private ELauncherVisibility(String lookupStr) {
-		this.addLV(lookupStr);
+		addLV(lookupStr);
 	}
 
 	/** addLookupValue :) */

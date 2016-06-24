@@ -16,7 +16,7 @@ final class LibraryExtractRules implements IExtractRules {
 	public LibraryExtractRules(JSONObject object) {
 		JSONArray excludeArray = (JSONArray) object.get("exclude");
 		for (Object obj : excludeArray) {
-			this.exclude.add(obj.toString());
+			exclude.add(obj.toString());
 		}
 	}
 
@@ -29,8 +29,8 @@ final class LibraryExtractRules implements IExtractRules {
 	@Override
 	public boolean accepts(ZipEntry entry) {
 		String path = entry.getName();
-		if ((this.exclude != null) && !this.exclude.isEmpty()) {
-			for (String p : this.exclude) {
+		if ((exclude != null) && !exclude.isEmpty()) {
+			for (String p : exclude) {
 				if (path.startsWith(p)) {
 					return false;
 				}

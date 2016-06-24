@@ -26,7 +26,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 
 	@Override
 	public void addVersionInstallListener(IVersionInstallListener listener) {
-		this.listeners.add(listener);
+		listeners.add(listener);
 	}
 
 	private void downloadLibrary(String url, File dest, IProgressMonitor p) throws Exception {
@@ -86,7 +86,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 						progress.setStatus("Installing " + lib.getName());
 					}
 					try {
-						this.downloadLibrary(lib.getDownloadURL(), libraryProvider.getLibraryFile(lib), progress);
+						downloadLibrary(lib.getDownloadURL(), libraryProvider.getLibraryFile(lib), progress);
 					} catch (Exception e) {
 						e.printStackTrace();
 						log.finest("Failed to install " + lib.getName());
@@ -129,7 +129,7 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 		if (haveProgress) {
 			progress.setStatus("Updating Resource...");
 		}
-		this.updateResources(mc, version, progress);
+		updateResources(mc, version, progress);
 		File jarDest = jarManager.getVersionJAR(version);
 		File jsonDest = jarManager.getInfoFile(version);
 		log.fine("Writing version info JSON file...");
@@ -154,11 +154,11 @@ final class MCDownloadVersionInstaller implements IVersionInstaller {
 			}
 		}
 		// notify listeners that installation is finished
-		this.notifyListeners(version);
+		notifyListeners(version);
 	}
 
 	private void notifyListeners(IVersion version) {
-		for (IVersionInstallListener listener : this.listeners) {
+		for (IVersionInstallListener listener : listeners) {
 			listener.versionInstalled(version);
 		}
 	}

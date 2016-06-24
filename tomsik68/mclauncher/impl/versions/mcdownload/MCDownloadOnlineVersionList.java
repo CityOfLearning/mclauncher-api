@@ -45,7 +45,7 @@ final class MCDownloadOnlineVersionList extends Observable<String> implements IV
 		// and then, for each version...
 		for (Object object : versions) {
 			JSONObject versionObject = (JSONObject) object;
-			this.notifyObservers(versionObject.get("id").toString());
+			notifyObservers(versionObject.get("id").toString());
 		}
 	}
 }

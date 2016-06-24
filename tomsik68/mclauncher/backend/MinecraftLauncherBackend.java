@@ -22,16 +22,16 @@ public final class MinecraftLauncherBackend {
 	private final MinecraftInstance minecraftInstance;
 
 	public MinecraftLauncherBackend(File minecraftDirectory) {
-		this.minecraftInstance = new MinecraftInstance(minecraftDirectory);
+		minecraftInstance = new MinecraftInstance(minecraftDirectory);
 	}
 
 	private IVersion findVersion(String versionID) throws Exception {
-		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(this.minecraftInstance);
+		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(minecraftInstance);
 		return mcDownloadVersionList.retrieveVersionInfo(versionID);
 	}
 
 	public LatestVersionInformation getLatestVersionInformation() throws Exception {
-		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(this.minecraftInstance);
+		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(minecraftInstance);
 		return mcDownloadVersionList.getLatestVersionInformation();
 	}
 
@@ -43,7 +43,7 @@ public final class MinecraftLauncherBackend {
 	 */
 	public List<String> getVersionList() throws Exception {
 		AddToListObserver observer = new AddToListObserver();
-		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(this.minecraftInstance);
+		MCDownloadVersionList mcDownloadVersionList = new MCDownloadVersionList(minecraftInstance);
 		mcDownloadVersionList.addObserver(observer);
 		mcDownloadVersionList.startDownload();
 
@@ -77,7 +77,7 @@ public final class MinecraftLauncherBackend {
 			throw new NullPointerException("versionID can't be null!");
 		}
 
-		IVersion version = this.findVersion(versionID);
+		IVersion version = findVersion(versionID);
 
 		if (session == null) {
 			throw new NullPointerException("session can't be null!");
@@ -85,7 +85,7 @@ public final class MinecraftLauncherBackend {
 		if (launchSettings == null) {
 			throw new NullPointerException("launchSettings can't be null!");
 		}
-		List<String> launchCommand = version.getLauncher().getLaunchCommand(session, this.minecraftInstance, serverInfo,
+		List<String> launchCommand = version.getLauncher().getLaunchCommand(session, minecraftInstance, serverInfo,
 				version, launchSettings, moddingProfile);
 		ProcessBuilder pb = new ProcessBuilder();
 		pb.command(launchCommand);
@@ -126,7 +126,7 @@ public final class MinecraftLauncherBackend {
 		if ((versionID == null) || (versionID.length() == 0)) {
 			throw new NullPointerException("versionID can't be null!");
 		}
-		IVersion version = this.findVersion(versionID);
-		version.getInstaller().install(version, this.minecraftInstance, progress);
+		IVersion version = findVersion(versionID);
+		version.getInstaller().install(version, minecraftInstance, progress);
 	}
 }

@@ -70,7 +70,7 @@ public final class VanillaServerStorage {
 	}
 
 	public ServerInfo[] loadServers() throws Exception {
-		final FileInputStream fis = new FileInputStream(this.file);
+		final FileInputStream fis = new FileInputStream(file);
 		NBTInputStream nbtIs = new NBTInputStream(fis, false);
 		// the cast should be safe, because compound tag is also a root
 		// container of contents in the file...
@@ -89,17 +89,17 @@ public final class VanillaServerStorage {
 	}
 
 	public void saveServers(ServerInfo[] servers) throws IOException {
-		if (this.file.exists()) {
-			if (!this.file.delete()) {
-				throw new IOException("Could not overwrite '".concat(this.file.getAbsolutePath()).concat("'"));
+		if (file.exists()) {
+			if (!file.delete()) {
+				throw new IOException("Could not overwrite '".concat(file.getAbsolutePath()).concat("'"));
 			}
 		}
-		final FileOutputStream fos = new FileOutputStream(this.file);
+		final FileOutputStream fos = new FileOutputStream(file);
 		NBTOutputStream nbtOutputStream = new NBTOutputStream(fos, false);
 		ArrayList<CompoundTag> serversList = new ArrayList<CompoundTag>();
 
 		for (ServerInfo server : servers) {
-			serversList.add(new CompoundTag("", this.createCompoundFromServer(server)));
+			serversList.add(new CompoundTag("", createCompoundFromServer(server)));
 		}
 
 		ListTag<CompoundTag> listTag = new ListTag<CompoundTag>("servers", CompoundTag.class, serversList);

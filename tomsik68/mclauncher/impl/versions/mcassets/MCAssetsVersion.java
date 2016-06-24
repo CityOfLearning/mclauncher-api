@@ -11,12 +11,12 @@ final class MCAssetsVersion implements IVersion {
 	private final String id;
 
 	public MCAssetsVersion(String vid) {
-		this.id = vid;
+		id = vid;
 	}
 
 	@Override
 	public int compareTo(IVersion o) {
-		return this.getId().compareTo(o.getId());
+		return getId().compareTo(o.getId());
 	}
 
 	@Override
@@ -25,12 +25,12 @@ final class MCAssetsVersion implements IVersion {
 		if (MCAssetsVersionList.isSnapshot(this)) {
 			type = "snapshot";
 		}
-		return type.concat(" ").concat(this.getId());
+		return type.concat(" ").concat(getId());
 	}
 
 	@Override
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	@Override
@@ -50,7 +50,7 @@ final class MCAssetsVersion implements IVersion {
 
 	@Override
 	public String getUniqueID() {
-		return this.getId();
+		return getId();
 	}
 
 	@Override

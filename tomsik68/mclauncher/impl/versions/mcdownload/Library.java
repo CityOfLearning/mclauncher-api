@@ -24,27 +24,27 @@ final class Library {
 	private String url = LIBRARY_BASE_URL;
 
 	public Library(JSONObject json) {
-		this.name = json.get("name").toString();
+		name = json.get("name").toString();
 		if (json.containsKey("natives")) {
 			JSONObject nativesObj = (JSONObject) json.get("natives");
 			for (String nativeKey : nativesObj.keySet()) {
 				String key = nativeKey;
 				String value = nativesObj.get(nativeKey).toString();
 
-				this.natives.put(key, value);
+				natives.put(key, value);
 			}
 		}
 		if (json.containsKey("rules")) {
 			JSONArray rulz = (JSONArray) json.get("rules");
 			for (int i = 0; i < rulz.size(); ++i) {
-				this.rules.add(new Rule((JSONObject) rulz.get(i)));
+				rules.add(new Rule((JSONObject) rulz.get(i)));
 			}
 		}
 		if (json.containsKey("extract")) {
-			this.extractRules = new LibraryExtractRules((JSONObject) json.get("extract"));
+			extractRules = new LibraryExtractRules((JSONObject) json.get("extract"));
 		}
 		if (json.containsKey("url")) {
-			this.url = json.get("url").toString();
+			url = json.get("url").toString();
 		}
 	}
 
@@ -53,7 +53,7 @@ final class Library {
 	 * @return String which contains URL where this library can be downloaded
 	 */
 	public String getDownloadURL() {
-		return this.url.concat(this.getPath());
+		return url.concat(getPath());
 	}
 
 	/**
@@ -61,52 +61,52 @@ final class Library {
 	 * @return IExtractRules that apply to this library
 	 */
 	public IExtractRules getExtractRules() {
-		return this.extractRules;
+		return extractRules;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
 	 * Returns name of library that holds natives for given operating system
-	 * 
+	 *
 	 * @param os
 	 *            - IOperatingSystem to check
 	 * @return Name of library which holds natives for given OS
 	 */
 	public String getNatives(IOperatingSystem os) {
-		if (!this.natives.containsKey(os.getMinecraftName())) {
-			return this.natives.get(Platform.wrapName(os.getMinecraftName())).replace("${arch}",
+		if (!natives.containsKey(os.getMinecraftName())) {
+			return natives.get(Platform.wrapName(os.getMinecraftName())).replace("${arch}",
 					System.getProperty("sun.arch.data.model"));
 		}
-		return this.natives.get(os.getMinecraftName()).replace("${arch}", os.getArchitecture());
+		return natives.get(os.getMinecraftName()).replace("${arch}", os.getArchitecture());
 	}
 
 	/**
 	 * Returns relative path of library as string. Relative path is used in
 	 * URLs, file paths. You can read more about this on wiki...
-	 * 
+	 *
 	 * @return Relative path of library.
 	 */
 	public String getPath() {
-		this.libraryPathSubstitutor.setVariable("arch", Platform.getCurrentPlatform().getArchitecture());
-		String[] split = this.name.split(":");
+		libraryPathSubstitutor.setVariable("arch", Platform.getCurrentPlatform().getArchitecture());
+		String[] split = name.split(":");
 		StringBuilder result = new StringBuilder();
 
 		result = result.append(split[0].replace('.', '/'));// net/sf/jopt-simple
 		result = result.append('/').append(split[1]).append('/').append(split[2]).append('/'); // /jopt-simple/4.4/
 		result = result.append(split[1]).append('-').append(split[2]); // jopt-simple-4.4
-		if (!this.natives.isEmpty()) {
+		if (!natives.isEmpty()) {
 			IOperatingSystem os = Platform.getCurrentPlatform();
 			String osName = os.getMinecraftName();
-			if (!this.natives.containsKey(osName)) {
+			if (!natives.containsKey(osName)) {
 				osName = Platform.wrapName(osName);
 			}
-			result = result.append('-').append(this.natives.get(osName));
+			result = result.append('-').append(natives.get(osName));
 		}
 		result = result.append(".jar");
-		return this.libraryPathSubstitutor.substitute(result.toString());
+		return libraryPathSubstitutor.substitute(result.toString());
 	}
 
 	/**
@@ -114,7 +114,7 @@ final class Library {
 	 * @return True if there are natives for any platform
 	 */
 	public boolean hasNatives() {
-		return !this.natives.isEmpty();
+		return !natives.isEmpty();
 	}
 
 	/**
@@ -124,7 +124,7 @@ final class Library {
 	 */
 	boolean isCompatible() {
 		Action action = Action.DISALLOW;
-		for (Rule rule : this.rules) {
+		for (Rule rule : rules) {
 			// rule may only change resulting action if it's effective...
 			if (rule.applies()) {
 				action = rule.getAction();
@@ -136,8 +136,8 @@ final class Library {
 		// library is compatible if:
 		// (there are no rules) OR ((action is allow) AND (there are EITHER ((no
 		// natives) OR (natives for this platform are available))))
-		return this.rules.isEmpty() || ((action == Action.ALLOW) && (!this.hasNatives()
-				|| this.natives.containsKey(Platform.getCurrentPlatform().getMinecraftName())
-				|| this.natives.containsKey(Platform.wrapName(Platform.getCurrentPlatform().getMinecraftName()))));
+		return rules.isEmpty() || ((action == Action.ALLOW)
+				&& (!hasNatives() || natives.containsKey(Platform.getCurrentPlatform().getMinecraftName())
+						|| natives.containsKey(Platform.wrapName(Platform.getCurrentPlatform().getMinecraftName()))));
 	}
 }

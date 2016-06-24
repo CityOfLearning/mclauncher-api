@@ -14,8 +14,8 @@ final class YDPasswordLoginRequest implements IJSONSerializable {
 	private final String user, pass, token;
 
 	public YDPasswordLoginRequest(String username, String password, String token) {
-		this.user = username;
-		this.pass = password;
+		user = username;
+		pass = password;
 		this.token = token;
 	}
 
@@ -23,9 +23,9 @@ final class YDPasswordLoginRequest implements IJSONSerializable {
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		obj.put("agent", agentObj);
-		obj.put("clientToken", this.token);
-		obj.put("username", this.user);
-		obj.put("password", this.pass);
+		obj.put("clientToken", token);
+		obj.put("username", user);
+		obj.put("password", pass);
 		return obj;
 	}
 

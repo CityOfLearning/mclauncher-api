@@ -22,7 +22,7 @@ final class CustomClassLoader extends URLClassLoader {
 	}
 
 	public void addJAR(URL url) {
-		this.addURL(url);
+		addURL(url);
 	}
 
 	@Override

@@ -12,26 +12,26 @@ final class JSONPingedServerInfo47 extends PingedServerInfo {
 
 	@Override
 	public String getIcon() {
-		return this.jsonObject.get("favicon").toString();
+		return jsonObject.get("favicon").toString();
 	}
 
 	@Override
 	public int getMaxPlayers() {
-		return Integer.parseInt(((JSONObject) this.jsonObject.get("players")).get("max").toString());
+		return Integer.parseInt(((JSONObject) jsonObject.get("players")).get("max").toString());
 	}
 
 	@Override
 	public String getMessage() {
-		return ((JSONObject) this.jsonObject.get("description")).get("text").toString();
+		return ((JSONObject) jsonObject.get("description")).get("text").toString();
 	}
 
 	@Override
 	public int getOnlinePlayers() {
-		return Integer.parseInt(((JSONObject) this.jsonObject.get("players")).get("online").toString());
+		return Integer.parseInt(((JSONObject) jsonObject.get("players")).get("online").toString());
 	}
 
 	@Override
 	public String getVersionId() {
-		return ((JSONObject) this.jsonObject.get("version")).get("name").toString();
+		return ((JSONObject) jsonObject.get("version")).get("name").toString();
 	}
 }

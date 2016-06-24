@@ -18,8 +18,8 @@ final class YDLogoutRequest implements IJSONSerializable {
 	@Override
 	public JSONObject toJSON() {
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("accessToken", this.session.getSessionID());
-		jsonObj.put("clientToken", this.clientToken.toString());
+		jsonObj.put("accessToken", session.getSessionID());
+		jsonObj.put("clientToken", clientToken.toString());
 		return jsonObj;
 	}
 

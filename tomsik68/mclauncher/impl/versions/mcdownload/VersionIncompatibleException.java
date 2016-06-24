@@ -12,8 +12,8 @@ public final class VersionIncompatibleException extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "Version " + this.v.getDisplayName() + " is not compatible with your operating system. Reason: "
-				+ this.v.getIncompatibilityReason();
+		return "Version " + v.getDisplayName() + " is not compatible with your operating system. Reason: "
+				+ v.getIncompatibilityReason();
 	}
 
 }

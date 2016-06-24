@@ -12,7 +12,7 @@ final class LibraryProvider {
 	private final File libraryFolder;
 
 	LibraryProvider(MinecraftInstance mc) {
-		this.libraryFolder = new File(mc.getLocation(), "libraries");
+		libraryFolder = new File(mc.getLocation(), "libraries");
 	}
 
 	/**
@@ -23,11 +23,11 @@ final class LibraryProvider {
 	 */
 	File getLibraryFile(Library library) {
 		String path = library.getPath().replace('/', File.separatorChar);
-		return new File(this.libraryFolder, path);
+		return new File(libraryFolder, path);
 	}
 
 	File getLibraryFolder() {
-		return this.libraryFolder;
+		return libraryFolder;
 	}
 
 	/**
@@ -37,7 +37,7 @@ final class LibraryProvider {
 	 * @return True if the specified library is installed, otherwise false
 	 */
 	boolean isInstalled(Library library) {
-		return this.getLibraryFile(library).exists();
+		return getLibraryFile(library).exists();
 	}
 
 }

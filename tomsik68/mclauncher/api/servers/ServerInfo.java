@@ -22,28 +22,28 @@ public class ServerInfo {
 	 * @return Byte array that contains icon as base64-encoded string
 	 */
 	public String getIcon() {
-		return this.icon;
+		return icon;
 	}
 
 	/**
 	 * @return IP of this server in form 1.2.3.4
 	 */
 	public final String getIP() {
-		return this.ip;
+		return ip;
 	}
 
 	/**
 	 * @return Name of this server
 	 */
 	public final String getName() {
-		return this.name;
+		return name;
 	}
 
 	/**
 	 * @return port of this server(e.g. 25565)
 	 */
 	public final int getPort() {
-		return this.port;
+		return port;
 	}
 
 	/**
@@ -52,6 +52,6 @@ public class ServerInfo {
 	 *         the server
 	 */
 	public boolean hasIcon() {
-		return (this.icon != null) && (this.icon.length() > 0);
+		return (icon != null) && (icon.length() > 0);
 	}
 }

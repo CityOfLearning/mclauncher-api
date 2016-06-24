@@ -10,20 +10,20 @@ final class YDSession implements ISession {
 	private final YDUserObject user;
 
 	public YDSession(YDLoginResponse r) {
-		this.username = r.getSelectedProfile().getName();
-		this.sessid = r.getSessionID();
-		this.uuid = r.getSelectedProfile().getId();
-		this.user = r.getUserObject();
+		username = r.getSelectedProfile().getName();
+		sessid = r.getSessionID();
+		uuid = r.getSelectedProfile().getId();
+		user = r.getUserObject();
 	}
 
 	@Override
 	public List<Prop> getProperties() {
-		return this.user.getProperties();
+		return user.getProperties();
 	}
 
 	@Override
 	public String getSessionID() {
-		return this.sessid;
+		return sessid;
 	}
 
 	@Override
@@ -34,15 +34,15 @@ final class YDSession implements ISession {
 
 	@Override
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	YDUserObject getUserObject() {
-		return this.user;
+		return user;
 	}
 
 	@Override
 	public String getUUID() {
-		return this.uuid;
+		return uuid;
 	}
 }

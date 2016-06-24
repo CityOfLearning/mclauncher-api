@@ -86,7 +86,7 @@ public final class HttpUtils {
 
 	/**
 	 * Posts a JSON object to URL and returns result
-	 * 
+	 *
 	 * @param url
 	 *            URL to request
 	 * @param request
@@ -135,7 +135,7 @@ public final class HttpUtils {
 
 	/**
 	 * Executes a simple HTTP-GET request
-	 * 
+	 *
 	 * @param url
 	 *            URL to request
 	 * @return The result of request
@@ -158,7 +158,7 @@ public final class HttpUtils {
 
 	/**
 	 * Execute a secured POST request
-	 * 
+	 *
 	 * @param url
 	 *            URL to request
 	 * @param keyInput

@@ -49,7 +49,7 @@ public final class MCAssetsVersionList extends Observable<String> implements IVe
 					&& (node.getChildNodes().getLength() > 0)) {
 				if (("Key".equals(node.getFirstChild().getNodeName()))
 						&& (node.getFirstChild().getTextContent().contains("minecraft.jar"))) {
-					this.notifyObservers(node.getFirstChild().getTextContent().split("/")[0]);
+					notifyObservers(node.getFirstChild().getTextContent().split("/")[0]);
 				}
 			}
 		}

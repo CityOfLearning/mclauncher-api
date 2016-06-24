@@ -10,7 +10,7 @@ public final class ServerPingResult {
 	}
 
 	private ServerPingResult(PingedServerInfo info, Throwable err, boolean successful) {
-		this.error = err;
+		error = err;
 		this.info = info;
 		this.successful = successful;
 	}
@@ -20,15 +20,15 @@ public final class ServerPingResult {
 	}
 
 	public Throwable getError() {
-		return this.error;
+		return error;
 	}
 
 	public PingedServerInfo getInfo() {
-		return this.info;
+		return info;
 	}
 
 	public boolean isSuccessful() {
-		return this.successful;
+		return successful;
 	}
 
 }

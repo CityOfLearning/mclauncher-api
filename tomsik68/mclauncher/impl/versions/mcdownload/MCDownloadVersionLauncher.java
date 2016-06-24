@@ -138,7 +138,7 @@ final class MCDownloadVersionLauncher implements IVersionLauncher {
 		}
 		command.add(mainClass);
 		// create minecraft arguments
-		String[] arguments = this.getMinecraftArguments(mc, resourcesInstaller.getAssetsDirectory(), session, settings,
+		String[] arguments = getMinecraftArguments(mc, resourcesInstaller.getAssetsDirectory(), session, settings,
 				version);
 		// give mods opportunity to change minecraft arguments
 		if (moddingProfileSpecified) {

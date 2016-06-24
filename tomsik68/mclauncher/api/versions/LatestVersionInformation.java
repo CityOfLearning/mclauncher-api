@@ -8,8 +8,8 @@ public final class LatestVersionInformation {
 	private final String latestSnapshot;
 
 	public LatestVersionInformation(String lastRelease, String lastSnapshot) {
-		this.latestRelease = lastRelease;
-		this.latestSnapshot = lastSnapshot;
+		latestRelease = lastRelease;
+		latestSnapshot = lastSnapshot;
 	}
 
 	/**
@@ -17,7 +17,7 @@ public final class LatestVersionInformation {
 	 * @return ID of latest release version. E.g. "1.8"
 	 */
 	public String getLatestRelease() {
-		return this.latestRelease;
+		return latestRelease;
 	}
 
 	/**
@@ -25,6 +25,6 @@ public final class LatestVersionInformation {
 	 * @return ID of latest snapshot. E.g. "14w07a"
 	 */
 	public String getLatestSnapshot() {
-		return this.latestSnapshot;
+		return latestSnapshot;
 	}
 }

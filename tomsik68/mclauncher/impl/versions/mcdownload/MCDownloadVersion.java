@@ -28,113 +28,113 @@ final class MCDownloadVersion implements IVersion, IJSONSerializable {
 
 	MCDownloadVersion(JSONObject json) {
 		this.json = json;
-		this.id = json.get("id").toString();
+		id = json.get("id").toString();
 		if (json.containsKey("jar")) {
-			this.jarVersion = json.get("jar").toString();
+			jarVersion = json.get("jar").toString();
 		} else {
-			this.jarVersion = this.id;
+			jarVersion = id;
 		}
-		this.time = json.get("time").toString();
-		this.releaseTime = json.get("releaseTime").toString();
-		this.type = json.get("type").toString();
+		time = json.get("time").toString();
+		releaseTime = json.get("releaseTime").toString();
+		type = json.get("type").toString();
 		if (json.containsKey("processArguments")) {
-			this.processArgs = json.get("processArguments").toString();
+			processArgs = json.get("processArguments").toString();
 		}
-		this.minecraftArgs = json.get("minecraftArguments").toString();
-		this.minimumLauncherVersion = Integer.parseInt(json.get("minimumLauncherVersion").toString());
-		this.mainClass = json.get("mainClass").toString();
+		minecraftArgs = json.get("minecraftArguments").toString();
+		minimumLauncherVersion = Integer.parseInt(json.get("minimumLauncherVersion").toString());
+		mainClass = json.get("mainClass").toString();
 		if (json.containsKey("assets")) {
-			this.assets = json.get("assets").toString();
+			assets = json.get("assets").toString();
 		} else {
-			this.assets = DEFAULT_ASSETS_INDEX;
+			assets = DEFAULT_ASSETS_INDEX;
 		}
 		if (json.containsKey("rules")) {
 			JSONArray rulesArray = (JSONArray) json.get("rules");
 			for (Object o : rulesArray) {
 				JSONObject jsonRule = (JSONObject) o;
-				this.rules.add(new Rule(jsonRule));
+				rules.add(new Rule(jsonRule));
 			}
 		}
 		if (json.containsKey("libraries")) {
 			JSONArray libs = (JSONArray) json.get("libraries");
 			for (int i = 0; i < libs.size(); ++i) {
-				this.libraries.add(new Library((JSONObject) libs.get(i)));
+				libraries.add(new Library((JSONObject) libs.get(i)));
 			}
 		}
 		if (json.containsKey("incompatibilityReason")) {
-			this.incompatibilityReason = json.get("incompatibilityReason").toString();
+			incompatibilityReason = json.get("incompatibilityReason").toString();
 		}
 		if (json.containsKey("inheritsFrom")) {
-			this.inheritsFrom = json.get("inheritsFrom").toString();
-			this.needsInheritance = true;
+			inheritsFrom = json.get("inheritsFrom").toString();
+			needsInheritance = true;
 		} else {
-			this.needsInheritance = false;
+			needsInheritance = false;
 		}
 	}
 
 	@Override
 	public int compareTo(IVersion arg0) {
-		return this.getId().compareTo(arg0.getId());
+		return getId().compareTo(arg0.getId());
 	}
 
 	void doInherit(MCDownloadVersion parent) {
-		MCLauncherAPI.log.finer("Inheriting version ".concat(this.id).concat(" from ").concat(parent.getId()));
-		if (!parent.getId().equals(this.getInheritsFrom())) {
+		MCLauncherAPI.log.finer("Inheriting version ".concat(id).concat(" from ").concat(parent.getId()));
+		if (!parent.getId().equals(getInheritsFrom())) {
 			throw new IllegalArgumentException("Wrong inheritance version passed!");
 		}
 
-		if (this.minecraftArgs == null) {
-			this.minecraftArgs = parent.getMinecraftArgs();
+		if (minecraftArgs == null) {
+			minecraftArgs = parent.getMinecraftArgs();
 		}
 
-		if (this.mainClass == null) {
-			this.mainClass = parent.getMainClass();
+		if (mainClass == null) {
+			mainClass = parent.getMainClass();
 		}
 
-		if (this.incompatibilityReason == null) {
-			this.incompatibilityReason = parent.getIncompatibilityReason();
+		if (incompatibilityReason == null) {
+			incompatibilityReason = parent.getIncompatibilityReason();
 		}
 
-		if (this.assets == null) {
-			this.assets = parent.getAssetsIndexName();
+		if (assets == null) {
+			assets = parent.getAssetsIndexName();
 		}
 
-		this.libraries.addAll(parent.getLibraries());
-		this.rules.addAll(parent.rules);
+		libraries.addAll(parent.getLibraries());
+		rules.addAll(parent.rules);
 
-		if ((this.jarVersion == null) || this.jarVersion.isEmpty()) {
-			this.jarVersion = parent.getJarVersion();
+		if ((jarVersion == null) || jarVersion.isEmpty()) {
+			jarVersion = parent.getJarVersion();
 		}
 
-		if (this.rules.isEmpty()) {
-			this.rules.addAll(parent.rules);
+		if (rules.isEmpty()) {
+			rules.addAll(parent.rules);
 		}
 
-		this.needsInheritance = false;
-		MCLauncherAPI.log.finer("Inheriting version ".concat(this.id).concat(" finished."));
+		needsInheritance = false;
+		MCLauncherAPI.log.finer("Inheriting version ".concat(id).concat(" finished."));
 	}
 
 	String getAssetsIndexName() {
-		return this.assets;
+		return assets;
 	}
 
 	@Override
 	public String getDisplayName() {
-		return this.type.concat(" ").concat(this.id);
+		return type.concat(" ").concat(id);
 	}
 
 	@Override
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	@Override
 	public String getIncompatibilityReason() {
-		return this.incompatibilityReason;
+		return incompatibilityReason;
 	}
 
 	String getInheritsFrom() {
-		return this.inheritsFrom;
+		return inheritsFrom;
 	}
 
 	@Override
@@ -143,7 +143,7 @@ final class MCDownloadVersion implements IVersion, IJSONSerializable {
 	}
 
 	String getJarVersion() {
-		return this.jarVersion;
+		return jarVersion;
 	}
 
 	@Override
@@ -152,40 +152,40 @@ final class MCDownloadVersion implements IVersion, IJSONSerializable {
 	}
 
 	List<Library> getLibraries() {
-		return this.libraries;
+		return libraries;
 	}
 
 	String getMainClass() {
-		return this.mainClass;
+		return mainClass;
 	}
 
 	String getMinecraftArgs() {
-		return this.minecraftArgs;
+		return minecraftArgs;
 	}
 
 	int getMinimumLauncherVersion() {
-		return this.minimumLauncherVersion;
+		return minimumLauncherVersion;
 	}
 
 	String getProcessArgs() {
-		return this.processArgs;
+		return processArgs;
 	}
 
 	String getReleaseTime() {
-		return this.releaseTime;
+		return releaseTime;
 	}
 
 	String getTime() {
-		return this.time;
+		return time;
 	}
 
 	String getType() {
-		return this.type;
+		return type;
 	}
 
 	@Override
 	public String getUniqueID() {
-		return this.type.charAt(0) + this.getId();
+		return type.charAt(0) + getId();
 	}
 
 	/**
@@ -196,20 +196,20 @@ final class MCDownloadVersion implements IVersion, IJSONSerializable {
 	@Override
 	public boolean isCompatible() {
 		Action action = null;
-		for (Rule rule : this.rules) {
+		for (Rule rule : rules) {
 			if (rule.applies()) {
 				action = rule.getAction();
 			}
 		}
-		return this.rules.isEmpty() || (action == Action.ALLOW);
+		return rules.isEmpty() || (action == Action.ALLOW);
 	}
 
 	boolean needsInheritance() {
-		return this.needsInheritance;
+		return needsInheritance;
 	}
 
 	@Override
 	public JSONObject toJSON() {
-		return this.json;
+		return json;
 	}
 }

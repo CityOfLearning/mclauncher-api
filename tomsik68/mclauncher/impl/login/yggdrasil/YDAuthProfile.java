@@ -16,17 +16,17 @@ public final class YDAuthProfile implements IProfile, IJSONSerializable {
 	private final String SKINS_ROOT = "http://skins.minecraft.net/MinecraftSkins/";
 
 	public YDAuthProfile(JSONObject json) {
-		this.userName = json.get("username").toString();
-		this.accessToken = json.get("accessToken").toString();
-		this.uuid = json.get("uuid").toString();
-		this.displayName = json.get("displayName").toString();
-		this.userId = json.get("userid").toString();
+		userName = json.get("username").toString();
+		accessToken = json.get("accessToken").toString();
+		uuid = json.get("uuid").toString();
+		displayName = json.get("displayName").toString();
+		userId = json.get("userid").toString();
 
 	}
 
 	public YDAuthProfile(String name, String displayName, String sessid, String uuid, String userId) {
-		this.userName = name;
-		this.accessToken = sessid;
+		userName = name;
+		accessToken = sessid;
 		this.uuid = uuid;
 		this.displayName = displayName;
 		this.userId = userId;
@@ -38,45 +38,45 @@ public final class YDAuthProfile implements IProfile, IJSONSerializable {
 	}
 
 	String getDisplayName() {
-		return this.displayName;
+		return displayName;
 	}
 
 	@Override
 	public String getName() {
-		return this.userName;
+		return userName;
 	}
 
 	@Override
 	public String getPassword() {
-		return this.accessToken;
+		return accessToken;
 	}
 
 	String getProfileName() {
-		return this.profileName;
+		return profileName;
 	}
 
 	@Override
 	public String getSkinURL() {
-		StringBuilder url = new StringBuilder(this.SKINS_ROOT);
-		url = url.append(this.getUUID()).append(".png");
+		StringBuilder url = new StringBuilder(SKINS_ROOT);
+		url = url.append(getUUID()).append(".png");
 		return url.toString();
 	}
 
 	String getUserId() {
-		return this.userId;
+		return userId;
 	}
 
 	public String getUUID() {
-		return this.uuid;
+		return uuid;
 	}
 
 	YDPartialGameProfile getYDGameProfile() {
-		YDPartialGameProfile result = new YDPartialGameProfile(this.userName, this.uuid, false);
+		YDPartialGameProfile result = new YDPartialGameProfile(userName, uuid, false);
 		return result;
 	}
 
 	public void setPassword(String sessionID) {
-		this.accessToken = sessionID;
+		accessToken = sessionID;
 	}
 
 	void setProfileName(String profileName) {
@@ -86,16 +86,16 @@ public final class YDAuthProfile implements IProfile, IJSONSerializable {
 	@Override
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
-		json.put("username", this.userName);
-		json.put("accessToken", this.accessToken);
-		json.put("uuid", this.uuid);
-		json.put("userid", this.userId);
-		json.put("displayName", this.displayName);
+		json.put("username", userName);
+		json.put("accessToken", accessToken);
+		json.put("uuid", uuid);
+		json.put("userid", userId);
+		json.put("displayName", displayName);
 		return json;
 	}
 
 	void update(ISession session) {
-		this.setPassword(session.getSessionID());
+		setPassword(session.getSessionID());
 	}
 
 }
