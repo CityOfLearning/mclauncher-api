@@ -6,10 +6,12 @@ import java.util.List;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import sk.tomsik68.mclauncher.api.common.MCLauncherAPI;
+import sk.tomsik68.mclauncher.api.common.mc.MinecraftInstance;
 import sk.tomsik68.mclauncher.api.json.IJSONSerializable;
 import sk.tomsik68.mclauncher.api.versions.IVersion;
 import sk.tomsik68.mclauncher.api.versions.IVersionInstaller;
 import sk.tomsik68.mclauncher.api.versions.IVersionLauncher;
+import sk.tomsik68.mclauncher.impl.common.Platform;
 import sk.tomsik68.mclauncher.impl.versions.mcdownload.Rule.Action;
 
 final class MCDownloadVersion implements IVersion, IJSONSerializable {
@@ -67,6 +69,14 @@ final class MCDownloadVersion implements IVersion, IJSONSerializable {
 		if (json.containsKey("inheritsFrom")) {
 			inheritsFrom = json.get("inheritsFrom").toString();
 			needsInheritance = true;
+			try {
+				MCDownloadLocalVersionList versionList = new MCDownloadLocalVersionList(
+						new MinecraftInstance(Platform.getCurrentPlatform().getWorkingDirectory()));
+				doInherit((MCDownloadVersion) (versionList.retrieveVersionInfo(inheritsFrom)));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			needsInheritance = false;
 		}

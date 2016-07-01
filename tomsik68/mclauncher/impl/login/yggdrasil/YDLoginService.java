@@ -70,7 +70,8 @@ public final class YDLoginService implements ILoginService {
 		YDPasswordLoginRequest request = new YDPasswordLoginRequest(profile.getName(), profile.getPassword(),
 				clientToken.toString());
 
-		YDLoginResponse response = doCheckedLoginPost(PASSWORD_LOGIN_URL, request); //failing here
+		YDLoginResponse response = doCheckedLoginPost(PASSWORD_LOGIN_URL, request); // failing
+																					// here
 
 		return response;
 	}
@@ -105,7 +106,7 @@ public final class YDLoginService implements ILoginService {
 		MCLauncherAPI.log.fine("Logging in using yggdrassil...");
 		YDLoginResponse response;
 		if (profile instanceof LegacyProfile) {
-			response = doPasswordLogin(profile); //sometimes doesnt work?
+			response = doPasswordLogin(profile); // sometimes doesnt work?
 		} else if (profile instanceof YDAuthProfile) {
 			response = doSessionLogin(profile);
 

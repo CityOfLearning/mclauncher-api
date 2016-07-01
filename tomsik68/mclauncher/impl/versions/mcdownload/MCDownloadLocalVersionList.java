@@ -13,7 +13,7 @@ import sk.tomsik68.mclauncher.api.versions.IVersionList;
 import sk.tomsik68.mclauncher.api.versions.LatestVersionInformation;
 import sk.tomsik68.mclauncher.impl.common.Observable;
 
-final class MCDownloadLocalVersionList extends Observable<String> implements IVersionList {
+public final class MCDownloadLocalVersionList extends Observable<String> implements IVersionList {
 	private final File versionsFolder;
 
 	public MCDownloadLocalVersionList(MinecraftInstance mc) {
