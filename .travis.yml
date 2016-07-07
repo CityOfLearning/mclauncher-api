@@ -11,10 +11,6 @@ sudo: false
 before_install:
   - chmod +x gradlew
 
-# Setup the workspace.
-install:
-  - ./gradlew setupCIWorkspace -S
-
 # Tell Travis to build the project.
 script:
   - ./gradlew build -S
