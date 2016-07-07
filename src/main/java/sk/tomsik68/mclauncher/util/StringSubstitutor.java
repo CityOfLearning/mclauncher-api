@@ -29,6 +29,7 @@ public final class StringSubstitutor {
 
 	public String substitute(String s) {
 		for (Entry<String, String> variable : variables.entrySet()) {
+			System.out.println(variable.getKey() + ", " + variable.getValue());
 			s = s.replace(variable.getKey(), variable.getValue());
 		}
 		return s;

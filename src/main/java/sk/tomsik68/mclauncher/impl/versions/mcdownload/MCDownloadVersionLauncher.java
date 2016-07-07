@@ -193,7 +193,7 @@ final class MCDownloadVersionLauncher implements IVersionLauncher {
 		} else {
 			subst.setVariable("user_properties", "{}");
 		}
-
+		System.out.println(args);
 		args = subst.substitute(args);
 		String[] argArray = args.split(" ");
 		for (int i = 0; i < argArray.length; i++) {
