@@ -27,3 +27,19 @@ dependencies {
     compile 'org.tukaani:xz:1.3'
     compile 'com.google.guava:guava:14.0'
 }
+
+jar {	
+	from ('src/main/java/assets'){
+    	into 'assets'
+    }
+	
+    from (sourceSets.main.output) {
+        setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    }
+    
+    configurations.compile.each{ dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-ING', 'META-INF/**', '**/LICENSE.txt'
+        }
+    }
+}
